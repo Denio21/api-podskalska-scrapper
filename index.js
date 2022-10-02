@@ -5,16 +5,31 @@ const htmltabletojson = require('html-table-to-json');
 let request = "";
 
 console.log("Starting...");
-for (let i = 0; i < 5; i++) {
-    console.log(moment().add(i, 'days').format('YYMMDD'));
-    (async () => {
+
+
+(async () => {
+    for (let j = 0; j < 5; j++) {
+
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        request = await page.goto('https://www.podskalska.cz/vossupl/' + moment().add(i, 'days').format('YYMMDD') + '.htm', { waitUntil: 'domcontentloaded' });
+        console.log("Visiting " + 'https://www.podskalska.cz/vossupl/' + moment().add(j, 'days').format('YYMMDD') + '.htm');
+        request = await page.goto('https://www.podskalska.cz/vossupl/' + moment().add(j, 'days').format('YYMMDD') + '.htm');
         request = await request.text();
-        if (!request.includes("Změny v rozvrzích tříd")) return;
+        console.log("Got what I came for. Leaving.")
+        
         await browser.close();
+        console.log("Closed browser")
 
+        if (request.includes("404")) {
+            console.log("Got fail state - 404. Ending.")
+            
+        }
+        else if (!request.includes("Změny v rozvrzích tříd")) {
+            console.log("Got fail state - not table. Ending.")
+            
+        }
+        else{
+        
         let jsonTables = htmltabletojson.parse(request);
         //console.log(jsonTables.results);
 
@@ -38,5 +53,6 @@ for (let i = 0; i < 5; i++) {
 
             console.log(classA + hour + subject + group + action + teacher);
         }
-    })();
-}
+
+    }}
+})();
