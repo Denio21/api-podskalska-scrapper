@@ -12,8 +12,8 @@ console.log("Starting...");
 
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
-        console.log("Visiting " + 'https://www.podskalska.cz/vossupl/' + moment().add(j, 'days').format('YYMMDD') + '.htm');
-        request = await page.goto('https://www.podskalska.cz/vossupl/' + moment().add(j, 'days').format('YYMMDD') + '.htm');
+        console.log("Visiting " + 'https://www.podskalska.cz/vossupl/su' + moment().add(j, 'days').format('YYMMDD') + '.htm');
+        request = await page.goto('https://www.podskalska.cz/vossupl/su' + moment().add(j, 'days').format('YYMMDD') + '.htm');
         request = await request.text();
         console.log("Got what I came for. Leaving.")
         
