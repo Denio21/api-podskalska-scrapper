@@ -24,11 +24,10 @@ console.log("Starting...");
             console.log("Got fail state - 404. Ending.")
 
         }
-        else if (!request.includes("Změny v rozvrzích tříd")) {
+        else if (!request.includes("Změny v rozvrzích tříd") || request.includes("Změny v rozvrzích tříd - nejsou")) {
             console.log("Got fail state - not table. Ending.")
 
         }
-        else if (!request.includes("<table>")) { console.log("Got fail state - not table. Ending.") }
         else {
 
             let jsonTables = htmltabletojson.parse(request);
@@ -39,8 +38,6 @@ console.log("Starting...");
             let subject = null
             let action = null
             let teacher = null
-            console.log(jsonTables);
-            console.log(jsonTables[0]);
             if(jsonTables.length == 0){console.log("Nothing here.")}
             else{
             for (let i = 0; i < jsonTables.results[0].length; i++) {
@@ -55,9 +52,10 @@ console.log("Starting...");
                 group = jsonTables.results[0][i]["4"];
                 action = jsonTables.results[0][i]["6"];
                 teacher = jsonTables.results[0][i]["8"];
+                // console.log(classA + hour + subject + group + action + teacher);
                 if (classA == "3.AV") {
                     console.log(classA + hour + subject + group + action + teacher);
-                }
+                } else{console.log("NOTHING HERE")}
             }
 
         }}
