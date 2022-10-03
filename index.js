@@ -38,26 +38,56 @@ console.log("Starting...");
             let subject = null
             let action = null
             let teacher = null
-            if(jsonTables.length == 0){console.log("Nothing here.")}
-            else{
-            for (let i = 0; i < jsonTables.results[0].length; i++) {
-                if (jsonTables.results[0][i]["Změny v rozvrzích tříd:"] != "") {
-                    classA = jsonTables.results[0][i]["Změny v rozvrzích tříd:"];
-                }
-                else {
+            if (jsonTables.length == 0) { console.log("Nothing here.") }
+            else {
+                for (let i = 0; i < jsonTables.results[0].length; i++) {
+                    if (jsonTables.results[0][i]["Změny v rozvrzích tříd:"] != "") {
+                        classA = jsonTables.results[0][i]["Změny v rozvrzích tříd:"];
+                    }
+                    else {
 
+                    }
+                    hour = jsonTables.results[0][i]["2"];
+                    subject = jsonTables.results[0][i]["3"];
+                    group = jsonTables.results[0][i]["4"];
+                    subClass = jsonTables.results[0][i]["5"]
+                    action = jsonTables.results[0][i]["6"];
+                    teacherB = jsonTables.results[0][i]["7"];
+                    teacher = jsonTables.results[0][i]["8"];
+
+                    if (action.includes("odpadá")) {
+                        let response = {
+                            class: classA,
+                            hour: hour,
+                            subject: subject,
+                            group: group,
+                            action: action,
+                            teacher: teacher
+                        }
+                        console.log(response);
+                    }
+                    else if (action.includes("přesun")) {
+                        let response = {
+                            class: classA,
+                            hour: hour,
+                            classNumber: subClass,
+                            subject: subject,
+                            group: group,
+                            action: action,
+                            teacher: teacherB,
+                            type: teacher
+                        }
+                        console.log(response);
+                    }
+
+
+                    // console.log(classA + hour + subject + group + action + teacher);
+                    // if (classA == "3.AV") {
+                    //     console.log(classA + hour + subject + group + action + teacher);
+                    // } else { console.log("NOTHING HERE") }
                 }
-                hour = jsonTables.results[0][i]["2"];
-                subject = jsonTables.results[0][i]["3"];
-                group = jsonTables.results[0][i]["4"];
-                action = jsonTables.results[0][i]["6"];
-                teacher = jsonTables.results[0][i]["8"];
-                // console.log(classA + hour + subject + group + action + teacher);
-                if (classA == "3.AV") {
-                    console.log(classA + hour + subject + group + action + teacher);
-                } else{console.log("NOTHING HERE")}
+
             }
-
-        }}
+        }
     }
 })();
