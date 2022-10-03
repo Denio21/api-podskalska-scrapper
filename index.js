@@ -1,11 +1,31 @@
 const puppeteer = require('puppeteer');
 const moment = require('moment');
 const htmltabletojson = require('html-table-to-json');
-
 let request = "";
+let mysql = require('mysql');
 
 console.log("Starting...");
 
+
+
+
+
+let con = mysql.createConnection({
+    host: "******",
+    user: "supplementation",
+    password: "*****",
+    database: "supplementation"
+});
+
+con.connect(function (err) {
+    if (err) throw err;
+    console.log("Connected!");
+    //var sql = "INSERT INTO customers (name, address) VALUES ('Company Inc', 'Highway 37')";
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+    });
+});
 
 (async () => {
     for (let j = 0; j < 5; j++) {
