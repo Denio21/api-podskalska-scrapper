@@ -6,10 +6,6 @@ let mysql = require('mysql');
 
 console.log("Starting...");
 
-
-
-
-
 let con = mysql.createConnection({
     host: "******",
     user: "supplementation",
